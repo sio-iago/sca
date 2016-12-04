@@ -1,9 +1,9 @@
 package br.cefetrj.sca.infra.auth;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
+import br.cefetrj.sca.dominio.repositories.PerfilUsuarioRepositorio;
+import br.cefetrj.sca.dominio.usuarios.TipoPerfilUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,11 +22,14 @@ import br.cefetrj.sca.dominio.usuarios.Usuario;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
-	@Qualifier("sieAuth")
+	@Qualifier("mockAuth")
 	EstrategiaAutenticacao autenticador;
 
 	@Autowired
 	UsuarioRepositorio usuarioRepositorio;
+
+	@Autowired
+	PerfilUsuarioRepositorio perfilUsuarioRepositorio;
 
 	@Override
 	public Authentication authenticate(Authentication authentication)
@@ -38,6 +41,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String password = authentication.getCredentials().toString();
 
 		Usuario usuario = usuarioRepositorio.findUsuarioByLogin(login);
+
 
 //		/**
 //		 * Procura novamente, devido à existência de dois formatos para o login

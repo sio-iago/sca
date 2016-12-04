@@ -1,6 +1,5 @@
 package br.cefetrj.sca.web.controllers;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +35,8 @@ public class VisualizacaoAvaliacaoDiscenteController {
 		String matricula = usr.getMatricula();
 
 		Professor professor = repositorio.findProfessorByMatricula(matricula);
-		System.out.println(professor.getNome());
 
 		List<Turma> t = discenteService.listarTurmaLecionadas(professor);
-		System.out.println(t.size());
 
 		mv.addObject("turmas", t);
 		return mv;
@@ -47,16 +44,26 @@ public class VisualizacaoAvaliacaoDiscenteController {
 	}
 
 	@RequestMapping("/Escolhaturma")
-	public void EscolhaTurma(@RequestParam Long cod) {
+	public ModelAndView EscolhaTurma(@RequestParam Long cod) {
+		ModelAndView mv = new ModelAndView("visualizarAvaliacoesDocentes/GraficoAvaliacoes");
 		Turma t = turmaRepositorio.findTurmaById(cod);
-		
+
+		String titulo = t.getNomeDisciplina() + " " + t.getCodigo();
+
 		List<AvaliacaoTurma> at = discenteService.selecionarTurma(t);
-		System.out.println(at.size());
-		try {
-			discenteService.conversaoRespospa(at);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		List<String> resp = discenteService.conversaoRespospa(at);
+
+		List<String> respPos = discenteService.obterRespostasPos(at);
+
+		List<String> respNeg = discenteService.obterRespostasNeg(at);
+
+		mv.addObject("turma", t);
+		mv.addObject("Respostas", resp);
+		mv.addObject("respPos", respPos);
+		mv.addObject("respNeg", respNeg);
+		mv.addObject("titulo", titulo);
+		return mv;
 
 	}
 
