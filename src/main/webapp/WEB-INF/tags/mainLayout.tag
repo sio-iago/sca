@@ -91,7 +91,7 @@ body {
 								<%-- 					href="${pageContext.request.contextPath}/realizarInscricao/realizarInscricao"> --%>
 								<!-- 						Realização de Inscriçôes</a></li> -->
 								<li><a
-									href="${pageContext.request.contextPath}/registroIsencoes/registroIsencoes">
+									href="${pageContext.request.contextPath}/submissaoIsencoes/apresentaPedidoIsencaoDisciplinas">
 										Isenção de Disciplinas </a></li>
 								<li><a
 									href="${pageContext.request.contextPath}/monografias/">
@@ -129,7 +129,7 @@ body {
 										Matrícula Fora do Prazo</a></li>
 								<li><a
 									href="${pageContext.request.contextPath}/isencaoDisciplina/visualizaAlunosSolicitantes">
-										Isenção de Disciplinas </a></li>
+										Análise de Pedidos de Isenção de Disciplinas </a></li>
 
 								<li><a
 									href="${pageContext.request.contextPath}/relatorioEvasao/homeEvasao">
